@@ -1,0 +1,14 @@
+{
+    "name": "mhn/referenten",
+    "description": "Referententool",
+    "type": "project",
+    "require": {
+        "php": "^7.0",
+        "box/spout": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "MHN\\Referenten\\": "Classes/"
+        }
+    }
+}

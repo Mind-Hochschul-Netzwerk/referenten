@@ -1,0 +1,300 @@
+/************ Allgemeines ****************/
+
+textarea.form-control  {
+    width: 100%;
+}
+
+label {
+    font-weight: normal;
+}
+
+.row {
+    margin-left: -15px !important;
+    margin-right: -15px !important;
+}
+.row > * {
+    margin-bottom: 0.5em;
+}
+
+.glyphicon-at:before {
+  content: "@";
+}
+
+.glyphicon-at {
+    top: -0.1em;
+}
+
+.glyphicon-paragraph:before {
+    content: "§";
+}
+
+.glyphicon-paragraph {
+    top: -0.5em;
+    left: -0.08em;
+    font-size: 150%;
+}
+
+.toggle.btn {min-width:20px;min-height:32px}
+
+h3 a[href] {
+    color: black;
+}
+
+h3 a[href]:hover {
+    color: gray;
+    text-decoration: underline;
+}
+
+.table.vertical-center td {
+    vertical-align: middle;
+}
+
+.has-danger label {
+    color: red;
+}
+
+.form-control-danger {
+    border-color: red;
+    background-color: #fee;
+}
+
+small {
+    white-space: nowrap;
+}
+
+button.link, button.link:active, button.link:focus {
+    border: none;
+    display: block;
+    background: inherit;
+    padding: none;
+    margin: 0em;
+    color: #337ab7; /* Link */
+}
+
+button.link:hover {
+    color: black;
+}
+
+/************* Navigation *****************/
+
+.navbar-mhn {
+    background-color: white;
+    border: none;
+    margin-bottom: 0px;
+}
+.navbar-mhn .navbar-nav > .active > a {
+    background-color: white;
+    color: orange;
+}
+.navbar-mhn a:hover {
+    background-color: #8caae6 !important;
+    color: white !important;
+}
+.navbar-mhn .navbar-toggle {
+    margin-top: 1.2em;
+    border-color: #205080 !important;
+}
+.navbar-mhn .navbar-toggle:hover, .navbar-mhn .navbar-toggle:focus {
+    background-color: #aabbff;
+}
+
+.navbar-mhn .navbar-toggle * {
+    background-color: #205080 !important;
+}
+#mhn-logo {
+    width: 2.3em;
+    height: 2.3em;
+    vertical-align: middle;
+    margin-right: 0.1em;
+    display: inline-block;
+}
+.navbar-brand {
+    height: 3.9em;
+}
+.nav .glyphicon {
+    margin-top: 0.4em;
+}
+
+/************* klein (Mobil) ****************/
+
+@media (max-width: 767px) {
+    .logo-text {
+        color: #205080;
+    }
+    .navbar-brand:hover .logo-text {
+        color: white;
+    }
+    .navbar-mhn .navbar-header {
+        background-color: #8caae6 !important;
+    }
+    #mhn-icon {
+        display: none;
+    }
+
+}
+
+/*************** mittel (Fenster) ***************/
+
+@media (min-width: 768px) and  (max-width: 1329px) {
+    .logo-text {
+        display: none;
+    }
+    #mhn-icon {
+        width: 1.5em;
+        height: 1.5em;
+        position: relative;
+        top: 0.4em;
+        left: 0.5em;
+        display: inline-block;
+    }
+    .navbar-mhn:hover #mhn-icon {
+        display: none;
+    }
+}
+
+/*************** groß (maximiert)  ***************/
+
+@media (min-width: 1330px) {
+    #mhn-icon {
+        display: none;
+    }
+}
+
+/******************* Login **********************/
+
+button.hidden-default-button {
+    overflow: visible !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+}
+
+/**************** Startseite *********************/
+
+.jumbotron {
+    background-color: #8caae6;
+    color: black;
+}
+
+.jumbotron * {
+    hyphens: auto;
+}
+
+/***************** Suche **************************/
+
+#suchergebnisse .inaktiv, #suchergebnisse .inaktiv * {
+    color: #bbb;
+}
+
+.thumbnail-container {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+}
+
+.thumbnail-container img {
+    max-width: 90px;
+    max-height: 90px;
+     position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/**************** Profil anzeigen ***************/
+
+.profilbild img {
+    max-width: 100%;
+    max-height: 400px;
+}
+.unsichtbar div + div:after, address .unsichtbar:after, p.unsichtbar:after, h4.unsichtbar:after {
+    content: " (Vertraulich!)";
+}
+.unsichtbar, .unsichtbar a {
+    color: red;
+    text-decoration: strike-through;
+}
+
+span.checkbox {
+    font-size: 1.2em;
+    display: inline-block;
+    margin: 0px;
+}
+
+div.profil-checkbox {
+    margin-left: 1.5em;
+    text-indent: -7pt;
+}
+div.profil-checkbox:first-line {
+    margin-left: 2em;
+}
+
+/************** Profil bearbeiten ***************/
+
+.input-group-addon {
+    padding: 0px;
+}
+
+.input-group-addon .btn {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.input-group-addon .toggle-handle {
+    border-radius: 4px;
+}
+
+.input-group-addon .toggle-off {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+div.checkbox {
+    margin-left: 4em;
+}
+
+div.checkbox label {
+    margin-left: -4em;
+    display: block;
+}
+
+div.checkbox input.form-control {
+    width: 80%;
+    display: inline-block;
+}
+
+textarea[maxlength] {
+    padding-bottom: 2em;
+}
+textarea[maxlength] + span {
+    position: absolute;
+    bottom: 0.5em;
+    left: 2em;
+    z-index: 1;
+    color: #999;
+}
+textarea[maxlength] + span:after {
+    content: " Zeichen übrig."
+}
+
+/************ Profilbild bearbeiten ***********/
+
+#profilbild img {
+    max-width: 100%;
+    max-height: 400px;
+}
+
+.kapsel {
+    display: inline-block;
+    background-color: #f0f0ff;
+    border: solid #9999ee 1px;
+    border-radius: 5px;
+    padding: 3px;
+}

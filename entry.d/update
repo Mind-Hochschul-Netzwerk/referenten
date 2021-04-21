@@ -1,0 +1,63 @@
+#!/usr/bin/php
+<?php
+declare(strict_types=1);
+
+/**
+ * @author Henrik Gebauer <mensa@henrik-gebauer.de>
+ * @license https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0
+ */
+
+require_once '/var/www/vendor/autoload.php';
+
+// Das Skript sollte so wenig Abhängigkeiten wie möglich haben, da ja ggf. erst die Infrastruktur angepasst wird.
+use MHN\Referenten\DB;
+
+/**
+ * automatische Anpassugnen an neue Versionen
+ *
+ * Update-Skripts werden aus update.d geladen und ausgeführt.
+ */
+const UPDATES_DIR = '/update.d';
+const IS_SHELL = true;
+
+$dir = dir(UPDATES_DIR);
+
+$files = [];
+while ($file = $dir->read()) {
+    if ($file{0} === '.') {
+        continue;
+    }
+
+    $files[] = $file;
+}
+
+natsort($files);
+
+echo "*** updates ***\n";
+
+foreach($files as $file) {
+    $type = pathinfo($file, PATHINFO_EXTENSION);
+
+    // Zeitlimit für jedes Skript zurücksetzen
+    set_time_limit(10);
+
+    switch ($type) {
+        case 'sql':
+            echo "applying $file ... ";
+            try {
+                DB::read(UPDATES_DIR . '/' . $file);
+                echo "done\n";
+            } catch (\Exception $e) {
+                echo "failed\n";
+                error_log($e->getMessage());
+            }
+            break;
+        case 'php':
+            echo "running $file ... ";
+            include_once UPDATES_DIR . '/' . $file;
+            echo "done\n";
+            break;
+    }
+}
+
+echo "updates finished\n";
