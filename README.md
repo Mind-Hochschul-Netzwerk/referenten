@@ -4,14 +4,26 @@ Referententool für Akademie und Symposium (http://referenten.mind-hochschul-net
 
 ## Container lokal bauen und starten
 
+### Target "dev" (Entwicklung)
+
 Die Akademie muss bereits laufen (oder in docker-compose.base.yml die Zeile ganz unten beim Netzwerk `akademie` die Zeile `external: true` entfernen)
 
-    $ make image
+    $ composer install -d app
+    $ make quick-image
     $ make dev
 
-Der Login ist dann im Browser unter [http://referenten.docker.localhost](http://referenten.docker.localhost) erreichbar.
+Der Login ist dann im Browser unter [http://referenten.docker.localhost](http://referenten.docker.localhost) erreichbar. Die Sicherheitswarnung wegen des Zertifikates kann weggeklickt werden.
 
-### Login-Rollen
+* Benutzername: Webteam
+* Passwort: webteam1
+
+### Target "prod" (Production)
+
+Die Akademie muss bereits laufen (oder in docker-compose.base.yml die Zeile ganz unten beim Netzwerk `akademie` die Zeile `external: true` entfernen)
+
+    $ make prod
+
+## Login-Rollen
 
 Admin: 
 
