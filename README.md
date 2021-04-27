@@ -37,7 +37,7 @@ Programmteam:
 
 Referent: 
 
-* Benutzername "referent@mhn.de", 
+* Benutzername "referent@mhn.de",
 * Passwort "referent"
 
 ## Automatische Updates
