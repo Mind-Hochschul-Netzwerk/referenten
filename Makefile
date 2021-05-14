@@ -23,3 +23,6 @@ prod: .env check-traefik
 	docker pull mindhochschulnetzwerk/referenten:latest
 	@echo "Starting Production Server"
 	docker-compose -f docker-compose.base.yml -f docker-compose.prod.yml up -d --force-recreate
+
+database: .env
+	docker-compose -f docker-compose.base.yml -f docker-compose.prod.yml up -d --force-recreate referenten-database
