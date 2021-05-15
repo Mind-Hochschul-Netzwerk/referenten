@@ -6,6 +6,7 @@ namespace MHN\Referenten;
  * @author Henrik Gebauer <mensa@henrik-gebauer.de>
  */
 use DateTime;
+use MHN\Referenten\Service\EmailService;
 
 class Benutzer {
     private $data = null;
@@ -510,25 +511,23 @@ class Benutzer {
     /**
      * Sendet eine E-Mail
      * $to kann 'email' oder 'new_email' oder 'both' sein, ansonsten wird ggf. an beide Adressen gesendet.
-     * $headers ist ein assoziatives Array wie [From => "noreply@example.com", ...]
+     * @param string $subject
+     * @param string $body
+     * @throws \RuntimeException wenn eine E-Mail nicht versandt werden konnte.
      */
-    public function sendEmail($subject, $body, $headers = [], $to = 'both') {
-        $to_list =  ($to != 'both') ? [$this->data[$to]] : ($this->data('new_email') ? [$this->data['email'], $this->data['new_email']] : [$this->data['new_email']]);
-
-        ensure($headers['MIME-Version'], ENSURE_STRING, null, '1.0');
-        ensure($headers['Content-Type'], ENSURE_STRING, null, 'text/plain; charset=utf-8');
-        ensure($headers['From'], ENSURE_STRING, null, Config::emailFrom);
-        ensure($headers['Reply-To'], ENSURE_STRING, null, Config::emailFrom);
-        ensure($headers['X-Mailer'], ENSURE_STRING, null, 'PHP');
-
-        $headerStr = '';
-        foreach ($headers as $k=>$v) {
-            $headerStr .= $k . ': ' . $v . "\r\n";
+    public function sendEmail($subject, $body, $to = 'both'): void
+    {
+        $to_list = [];
+        if ($to === 'email' || $to === 'both') {
+            $to_list[] = $this->data['email'];
+        }
+        if ($to === 'new_email' || $to === 'both') {
+            $to_list[] = $this->data['new_email'];
         }
 
         foreach ($to_list as $TO) {
-            if (!mail($TO, $subject, $body, $headerStr)) {
-                die('Beim Versand der E-Mail ist ein Fehler aufgetreten.');
+            if (!(EmailService::getInstance()->send($TO, $subject, $body))) {
+                throw new \RuntimeException('Beim Versand der E-Mail an ' . $TO . ' (ID ' . $this->data['id'] . ') ist ein Fehler aufgetreten.', 1522422201);
             }
         }
     }
