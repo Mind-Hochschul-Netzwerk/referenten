@@ -14,6 +14,8 @@ use MHN\Referenten\Config;
 */
 class Password
 {
+    const CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890';
+
     /**
      * Prüft, ob $hash zu $plaintext passt
      *
@@ -60,20 +62,20 @@ class Password
 
     public static function hash(string $plaintext) : string
     {
-        $salt = mcrypt_create_iv(Config::passwordSaltSize, MCRYPT_DEV_URANDOM);
+        $salt = self::randomString(Config::passwordSaltSize);
         $hash = hash_pbkdf2(Config::passwordAlgo, $plaintext, $salt, Config::passwordIterations, Config::passwordLength, true);
         return implode(':', ['', 'pbkdf2', Config::passwordAlgo, Config::passwordIterations, Config::passwordLength, base64_encode($salt), base64_encode($hash)]);
     }
 
-    /**
+        /**
      * gibt einen zufälligen String zurück. Zeichensatz: a-z A-Z 0-9
      */
     public static function randomString(int $length) : string
     {
         $string = '';
         do {
-            $string .= preg_replace('/[^a-zA-Z0-9]/', '', base64_encode(mcrypt_create_iv(256, MCRYPT_DEV_URANDOM)));
+            $string .= self::CHARS[rand(0, strlen(self::CHARS) - 1)];
         } while (strlen($string) < $length);
-        return substr($string, 0, $length);
+        return $string;
     }
 }
