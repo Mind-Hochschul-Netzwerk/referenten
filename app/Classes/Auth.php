@@ -20,45 +20,19 @@ class Auth {
             $_SESSION['passwortwechsel'] = null;
         }
     }
-    
+
     public static function istEingeloggt() {
         return (isset($_SESSION['uid']) && $_SESSION['uid'] !== null);
     }
-    
+
     /**
     * Prüft, ob ein Mitglied interne Seiten sehen darf und leitet sonst zu den entsprechenden Formularen
     */
     public static function intern($context = 'intern') {
         if (!self::istEingeloggt()) {
-            // OpenID Connect
-            //if (Config::$openIDURL) {
-                if (false) {
-                Tpl::pause();
-                
-                // nach dem Login auf dem Login-Server wieder auf der ursprünglich aufgerufenen Seite weiter surfen
-                if (!isset($_REQUEST['state']) or !isset($_SESSION['request_uri'])) {
-                    $_SESSION['request_uri'] = $_SERVER['REQUEST_URI'];
-                }
-
-                try {
-                    $oidc = new OpenIDConnectClient(Config::$openIDURL, Config::$openIDConnectClientID, Config::$openIDConnectClientSecret);
-                    $oidc->setRedirectURL(Config::$openIDRedirectURL);
-                    $oidc->authenticate();
-                // Fallback
-                } catch (OpenIDConnectClientException $e) {
-                    header('Location: /login.php');
-                    exit;
-                }
-
-                self::logIn($oidc->requestUserInfo('user_id'));
-                
-                header("Location: " . $_SESSION['request_uri']);
-                exit;
-            } else {
-                Tpl::pause();
-                header("Location: /login.php");
-                exit;
-            }
+            Tpl::pause();
+            header("Location: /login.php");
+            exit;
         } else if ($_SESSION['passwortwechsel']) {
             if ($context === 'passwortwechsel') return;
             Tpl::pause();
@@ -75,30 +49,30 @@ class Auth {
             }
         }
     }
-    
+
     /**
     * Loggt den User $uid ein
     */
     public static function logIn($uid) {
         $u = Benutzer::lade($uid, true);
-        
+
         assert(!is_null($u));
-        
+
         $_SESSION['uid'] = $uid;
-        
+
         $u->set('last_login', 'now');
-        
+
         if ($u->get('new_password')) { // falls ein Einmalpasswort gesetzt ist
             $_SESSION['passwortwechsel'] = true;
         } else {
             $_SESSION['passwortwechsel'] = false;
         }
-        
+
         $u->save();
-                
+
         return $u;
     }
-    
+
     /**
     * Loggt den User aus
     */
@@ -106,13 +80,13 @@ class Auth {
         if (!self::istEingeloggt()) {
             return;
         }
-        
+
         Session::destroy();
         Session::start();
         self::init();
         Tpl::pause();
     }
-    
+
     /**
     * Prüft, ob der User oder ein anderes Mitglied ein Recht hat
     */
@@ -126,21 +100,21 @@ class Auth {
             $uid = self::getUID();
         }
 
-        // Rechtverwaltung impliziert alle Rechte 
+        // Rechtverwaltung impliziert alle Rechte
         if ($recht != 'rechte' and self::hatRecht('rechte', $uid)) {
             return true;
         }
-        
+
         return DB::query('SELECT uid FROM rechte WHERE uid=%d AND recht="%s"', $uid, $recht)->count() > 0;
     }
-    
+
     /**
     * die ID des Users
     */
     public static function getUID(): int {
         return (int)$_SESSION['uid'];
     }
-    
+
     /**
     * prüft, ob der User eine bestimmte ID hat
     */
@@ -156,7 +130,7 @@ class Auth {
     public static function istIn($uids) {
         return in_array(self::getUID(), $uids);
     }
-    
+
     /**
     * überprüft ein Passwort
     * Gibt zurück, ob es sich bei dem Passwort um das normale Passwort oder um ein Einmalpasswort handelt
@@ -166,7 +140,7 @@ class Auth {
 
         $hash = DB::query('SELECT password FROM benutzer WHERE uid=%d', $uid)->get();
         $newHash = DB::query('SELECT new_password FROM benutzer WHERE new_password_expire_time > NOW() AND uid=%d', $uid)->get();
-        
+
         if (Password::check($hash, $password, $uid)) {
             if ($newHash == 'new_password') return 'new_password'; // d.h. das Passwort wurde zum Ändern vorgemerkt (-> neuer Benutzer)
             return 'password';

@@ -33,12 +33,6 @@ class Config {
     public static $mysqlUser;
     public static $mysqlPassword;
     public static $mysqlDatabase;
-
-    // OpenID-Connect-Daten (werden als Environment-Variablen übergeben, s.u.)
-    public static $openIDURL;
-    public static $openIDRedirectURL;
-    public static $openIDConnectClientID;
-    public static $openIDConnectClientSecret;
 }
 
 Config::$mysqlHost      = getenv('MYSQL_HOST');
