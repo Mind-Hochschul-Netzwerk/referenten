@@ -22,7 +22,7 @@ namespace MHN\Referenten;
         <?php if (!empty($info_neues_passwort)): ?>
             <div id="alertPasswortNeu" class="alert alert-success">Ein neues Passwort wurde an deine E-Mail-Adresse gesendet.</div>
         <?php endif; ?>
-        
+
         <div id="alertBenutzerkennung" class="alert alert-danger <?=(empty($error_username_leer))?'hide':''?>">Gib deinen Benutzernamen oder E-Mail-Adresse an.</div>
         <div class="row form-group">
             <div class="col-sm-12">
@@ -34,13 +34,13 @@ namespace MHN\Referenten;
                 <input name="password" type="password" placeholder="Passwort" class="form-control" />
             </div>
         </div>
-            
+
         <button type="submit" onclick="return check_username();" class="hidden-default-button"></button>
         <p><button class="link btn btn-secondary" onclick="return check_username();" name="passwort_vergessen">Ich habe mein Passwort vergessen.</button></p>
       </div>
       <div class="modal-footer">
         <a class="btn btn-secondary" role="button" href="registrieren.php">Registrieren</a>
-        <a href="http://www.mind-hochschul-netzwerk.de/" class="btn btn-default" role="button">Abbrechen</a>
+        <a href="http://www.<?=getenv('DOMAINNAME')?>" class="btn btn-default" role="button">Abbrechen</a>
         <button type="submit" onclick="return check_username();" class="btn btn-primary">Login</button>
       </div>
 </form>

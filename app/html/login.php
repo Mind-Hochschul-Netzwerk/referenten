@@ -32,9 +32,9 @@ if ($_REQUEST['uid']) {
             $new_password = Password::randomString(Config::newPasswordLength);
             $m->set('new_password', $new_password);
             $m->save();
-            
+
             // E-Mail mit dem neuen Passwort schicken (nur an die alte Adresse)
-            $m->sendEmail('Neues Passwort', 
+            $m->sendEmail('Neues Passwort',
 'Hallo ' . $m->get('fullName') . ",
 
 Du hast ein neues Passwort für deinen Zugang zum MinD-Hochschul-Netzwerk
@@ -43,12 +43,12 @@ angefordert.
 Es wurde ein neues Passwort festgelegt: $new_password
 
 Bitte melde dich innerhalb der nächsten $passwordExpireTime_minutes Minuten unter
-" . Config::rootURL . " an und ändere dein Passwort.
+https://referenten." . getenv('DOMAINNAME') . " an und ändere dein Passwort.
 
 Das alte Passwort bleibt bis zum Login mit dem neuen Passwort ebenfalls gültig.
 ", '', 'email');
         }
-        
+
         Tpl::set('lost_password', true);
         Tpl::set('passwordExpireTime_minutes', $passwordExpireTime_minutes);
     // Login
@@ -57,24 +57,24 @@ Das alte Passwort bleibt bis zum Login mit dem neuen Passwort ebenfalls gültig.
         foreach ($ids as $id) {
             if ($passwordType = Auth::checkPassword($_REQUEST['password'], $id)) {
                 $u = Auth::logIn($id);
-                
+
                 // falls dem User sein altes Passwort wieder eingefallen ist, obwohl er ein neues angefordert hatte, wird das neue ungültig
                 if ($passwordType == 'password') {
                     $_SESSION['passwortwechsel'] = false;
                     $u->set('new_password', '');
                     $u->save();
                 }
-                
+
                 // zur Startseite. Von dort aus wird ggf. auf passwortwechsel.php oder aktivieren.php weiter geleitet (Auth::intern()).
                 Tpl::pause();
-                header('Location: /'); 
+                header('Location: /');
                 exit;
             }
         }
         Tpl::set('error_passwort_falsch', true);#
     }
 }
-    
+
 Tpl::sendHead();
 Tpl::render('login');
 

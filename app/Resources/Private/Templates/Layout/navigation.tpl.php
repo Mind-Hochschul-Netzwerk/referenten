@@ -10,18 +10,21 @@ if (Auth::istEingeloggt()) {
         'benutzer' => ['benutzer.php', 'Mein Profil', 'user'],
         'vortragsliste' => (Auth::hatRecht('referent') && !Auth::hatRecht('ma-pt')) ? ['vortragsliste.php', 'Meine Beiträge', 'calendar'] : null,
         'logout' => ['logout.php', 'Logout', 'log-out'],
-        'datenschutz' => ['https://www.mind-hochschul-netzwerk.de/index.php/datenschutz/', 'Datenschutz', 'paragraph'],
+        'akademie' => ['https://www.mind-akademie.de/', 'MA-Webseite', 'home'],
+        'moodle' => ['https://www.' . getenv('DOMAINNAME'), 'MHN-Webseite', 'home'],
+        'datenschutz' => ['https://www.' . getenv('DOMAINNAME') . '/mod/page/view.php?id=12', 'Datenschutz', 'paragraph'],
         'datenverarbeitung' => ['datenverarbeitung.php', 'Datenverarbeitung', 'paragraph'],
-        'impressum' => ['https://www.mind-hochschul-netzwerk.de/index.php/impressum/', 'Impressum', 'globe'],
+        'impressum' => ['https://www.' . getenv('DOMAINNAME') . '/mod/page/view.php?id=5', 'Impressum', 'globe'],
     ];
 
 } else {
     $navItems = [
-        'homepage' => ['https://www.mind-akademie.de/', 'MA-Webseite', 'home'],
         'login' => ['/', 'Login', 'log-in'],
         'registrieren' => ['registrieren.php', 'Registrieren', 'plus'],
-        'datenschutz' => ['https://www.mind-hochschul-netzwerk.de/index.php/datenschutz/', 'Datenschutz', 'paragraph'],
-        'impressum' => ['https://www.mind-hochschul-netzwerk.de/index.php/impressum/', 'Impressum', 'globe'],
+        'akademie' => ['https://www.mind-akademie.de/', 'MA-Webseite', 'home'],
+        'moodle' => ['https://www.' . getenv('DOMAINNAME'), 'MHN-Webseite', 'home'],
+        'datenschutz' => ['https://www.' . getenv('DOMAINNAME') . '/mod/page/view.php?id=12', 'Datenschutz', 'paragraph'],
+        'impressum' => ['https://www.' . getenv('DOMAINNAME') . '/mod/page/view.php?id=5', 'Impressum', 'globe'],
     ];
 }
 ?>

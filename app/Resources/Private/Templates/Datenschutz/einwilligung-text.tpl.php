@@ -20,7 +20,7 @@
     einzuschränken oder ihr zu widersprechen sowie Beschwerde bei einer Aufsichtsbehörde einzulegen. Zudem haben Sie
     jederzeit das Recht, dieser Einwilligung zu widersprechen. Bitte wenden Sie sich dazu an das zuständige
     Vorstandsmitglied unter vorstand@mind-hochschul-netzwerk.de. Weiterführende Informationen zur Datenverarbeitung bei
-    MHN finden Sie in der <a href="https://www.mind-hochschul-netzwerk.de/index.php/datenschutz/">Datenverarbeitungsrichtlinie</a>.
+    MHN finden Sie in der <a href="https://www.<?=getenv('DOMAINNAME')?>/mod/page/view.php?id=12">Datenverarbeitungsrichtlinie</a>.
 </p>
 
 

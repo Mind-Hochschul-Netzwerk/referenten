@@ -545,7 +545,7 @@ class Benutzer {
 
 Bitte rufe die folgende Adresse auf, um die Änderung deiner E-Mail-Adresse im MinD-Hochschul-Netzwerk zu bestätigen:
 
-' . Config::rootURL . 'email_auth.php?token=' . urlencode($this->data['new_email_token']) . '
+https://referenten.' . getenv('DOMAINNAME') . '/email_auth.php?token=' . urlencode($this->data['new_email_token']) . '
 
 Der Link hat eine Gültigkeit von ' . ((strtotime(Config::newEmailTokenExpireTime) - time()) / 3600) . ' Stunden.
 ', '', 'new_email');
