@@ -12,9 +12,9 @@ if (Auth::istEingeloggt()) {
         'logout' => ['logout.php', 'Logout', 'log-out'],
         'akademie' => ['https://www.mind-akademie.de/', 'MA-Webseite', 'home'],
         'moodle' => ['https://www.' . getenv('DOMAINNAME'), 'MHN-Webseite', 'home'],
-        'datenschutz' => ['https://www.' . getenv('DOMAINNAME') . '/mod/page/view.php?id=12', 'Datenschutz', 'paragraph'],
+        'datenschutz' => ['https://www.' . getenv('DOMAINNAME') . '/mod/book/view.php?id=253&chapterid=4', 'Datenschutz', 'paragraph'],
         'datenverarbeitung' => ['datenverarbeitung.php', 'Datenverarbeitung', 'paragraph'],
-        'impressum' => ['https://www.' . getenv('DOMAINNAME') . '/mod/page/view.php?id=5', 'Impressum', 'globe'],
+        'impressum' => ['https://www.' . getenv('DOMAINNAME') . '/mod/book/view.php?id=253&chapterid=5', 'Impressum', 'globe'],
     ];
 
 } else {
@@ -22,9 +22,9 @@ if (Auth::istEingeloggt()) {
         'login' => ['/', 'Login', 'log-in'],
         'registrieren' => ['registrieren.php', 'Registrieren', 'plus'],
         'akademie' => ['https://www.mind-akademie.de/', 'MA-Webseite', 'home'],
-        'moodle' => ['https://www.' . getenv('DOMAINNAME'), 'MHN-Webseite', 'home'],
-        'datenschutz' => ['https://www.' . getenv('DOMAINNAME') . '/mod/page/view.php?id=12', 'Datenschutz', 'paragraph'],
-        'impressum' => ['https://www.' . getenv('DOMAINNAME') . '/mod/page/view.php?id=5', 'Impressum', 'globe'],
+        'moodle' => ['https://www.' . getenv('DOMAINNAME'), 'MHN-Webseite', 'home'4],
+        'datenschutz' => ['https://www.' . getenv('DOMAINNAME') . '/mod/book/view.php?id=253&chapterid=4', 'Datenschutz', 'paragraph'],
+        'impressum' => ['https://www.' . getenv('DOMAINNAME') . '/mod/book/view.php?id=253&chapterid=5', 'Impressum', 'globe'],
     ];
 }
 ?>

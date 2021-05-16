@@ -20,8 +20,6 @@ class Config {
     const newPasswordLength = 12; // Anzahl der Zeichen für ein automatisch generiertes Passwort
     const newPasswordExpireTime = '+30 minutes'; // Zeit, in der eine Einmal-Passwort verwendet werden muss. Format für strtodate.
 
-    const emailFrom = 'Mein MHN <noreply@referenten.mind-hochschul-netzwerk.de>'; // Absendeadresse von E-Mails
-
     // Maximale Größe von Profilbildern
     const profilbildMaxWidth  = 1000000;
     const profilbildMaxHeight = 1000000;
