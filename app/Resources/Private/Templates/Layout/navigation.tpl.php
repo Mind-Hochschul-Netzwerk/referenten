@@ -22,7 +22,7 @@ if (Auth::istEingeloggt()) {
         'login' => ['/', 'Login', 'log-in'],
         'registrieren' => ['registrieren.php', 'Registrieren', 'plus'],
         'akademie' => ['https://www.mind-akademie.de/', 'MA-Webseite', 'home'],
-        'moodle' => ['https://www.' . getenv('DOMAINNAME'), 'MHN-Webseite', 'home'4],
+        'moodle' => ['https://www.' . getenv('DOMAINNAME'), 'MHN-Webseite', 'home'],
         'datenschutz' => ['https://www.' . getenv('DOMAINNAME') . '/mod/book/view.php?id=253&chapterid=4', 'Datenschutz', 'paragraph'],
         'impressum' => ['https://www.' . getenv('DOMAINNAME') . '/mod/book/view.php?id=253&chapterid=5', 'Impressum', 'globe'],
     ];
