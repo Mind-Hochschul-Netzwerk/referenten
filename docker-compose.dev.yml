@@ -14,8 +14,6 @@ services:
       - traefik.docker.network=traefik
       - traefik.http.routers.referenten-adminer.entrypoints=websecure
       - traefik.http.routers.referenten-adminer.rule=Host(`referenten-adminer.${DOMAINNAME}`)
-      - traefik.http.routers.referenten-adminer.tls=true
-      - traefik.http.routers.referenten-adminer.tls.certresolver=myresolver
       - traefik.http.routers.referenten-adminer.middlewares=secheader@file
     depends_on:
       - referenten-database
