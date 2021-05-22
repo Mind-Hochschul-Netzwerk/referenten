@@ -46,6 +46,7 @@ class EmailService implements \MHN\Referenten\Interfaces\Singleton
         }
         $this->mailer->Port = getenv('SMTP_PORT');
         $this->mailer->setFrom(getenv('FROM_ADDRESS'), 'Mind-Hochschul-Netzwerk');
+        $this->mailer->addReplyTo('referentenbetreuung@' . getenv('DOMAINNAME'), 'Referentenbetreuung (Mind-Akademie)');
         $this->mailer->CharSet = 'utf-8';
     }
 
