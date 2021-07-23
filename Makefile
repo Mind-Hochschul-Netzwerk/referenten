@@ -24,3 +24,11 @@ prod: image .env check-traefik
 
 database: .env
 	docker-compose -f docker-compose.base.yml -f docker-compose.prod.yml up -d --force-recreate referenten-database
+
+shell:
+	docker-compose exec referenten sh
+
+MYSQL_PASSWORD=$(shell grep MYSQL_PASSWORD .env | sed -e 's/^.\+=//' -e 's/^"//' -e 's/"$$//')
+mysql: .env
+	@echo "docker-compose exec referenten-database mysql --user=user --password=\"...\" database"
+	@docker-compose exec referenten-database mysql --user=user --password="$(MYSQL_PASSWORD)" database

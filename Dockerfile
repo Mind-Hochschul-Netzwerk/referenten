@@ -25,7 +25,3 @@ RUN set -ex \
   && mkdir -p /var/www/html/profilbilder && chown www-data:www-data /var/www/html/profilbilder
 
 VOLUME /var/www/html/public/profilbilder
-
-
-
-
