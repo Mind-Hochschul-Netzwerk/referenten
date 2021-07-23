@@ -27,21 +27,17 @@ Die Akademie muss bereits laufen. Dann:
 
 ## Login-Rollen
 
-Admin: 
+Admin:
 
-* Benutzerkennung "webteam@mind-hochschul-netzwerk.de", 
+* Benutzerkennung "webteam@mind-hochschul-netzwerk.de",
 * Passwort "webteam1"
 
-Programmteam: 
+Programmteam:
 
-* Benutzername "pt@mhn.de", 
+* Benutzername "pt@mhn.de",
 * Passwort "ma-pt"
 
-Referent: 
+Referent:
 
 * Benutzername "referent@mhn.de",
 * Passwort "referent"
-
-## Automatische Updates
-
-Falls Änderungen ein Update an der Datenbank erforderlich machen, kann ein Update-Skript in `update.d` abgelegt werden, das die nötigen Änderungen vornimmt und dann beim Start des Containers geladen wird. Möglich sind PHP-Skripte (Endung .php) und SQL-Dateien (Endung .sql). Schlägt ein SQL-Query fehl, werden die nachfolgenden Queries in der Datei nicht mehr ausgeführt. Nachfolgende Update-Skripte werden aber trotzdem geladen.

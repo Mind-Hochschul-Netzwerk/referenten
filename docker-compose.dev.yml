@@ -3,7 +3,6 @@ services:
   referenten:
     volumes:
       - "./app:/var/www"
-      - "./update.d:/update.d"
       - "${VOLUMES_DIR}/profilbilder:/var/www/html/profilbilder"
 
   referenten-adminer:

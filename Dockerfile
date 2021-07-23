@@ -3,8 +3,6 @@ FROM mindhochschulnetzwerk/php-base
 LABEL Maintainer="Henrik Gebauer <code@henrik-gebauer.de>" \
       Description="mind-hochschul-netzwerk.de"
 
-COPY entry.d/ /entry.d/
-COPY update.d/ /update.d/
 COPY app/ /var/www/
 
 RUN set -ex \
