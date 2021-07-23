@@ -26,21 +26,21 @@ namespace MHN\Referenten;
               <div id="alertAccountAngelegt" class="alert alert-danger">Zu dieser E-Mail-Adresse existiert bereits ein Account. <a href="login.php">Zum Login</a></div>
           <?php endif; ?>
 
-        
+
         <div id="alertBenutzerkennung" class="alert alert-danger <?=($error_username_leer)?'':'hide'?>">Bitte die E-Mail-Adresse angeben.</div>
         <div id="alertPasswort" class="alert alert-danger <?=($error_passwort_ungleich)?'':'hide'?>">Die Wiederholung stimmt nicht mit dem Passwort überein.</div>
-        <div id="alertPasswortEmpty" class="alert alert-danger hide">Bitte geben Sie ein Passwort ein.</div>
+        <div id="alertPasswortEmpty" class="alert alert-danger hide">Bitte gib ein Passwort ein.</div>
 
-          <div id="alertInformationspflicht" class="alert alert-danger hide">Um fortfahren zu können müssen die
+          <div id="alertInformationspflicht" class="alert alert-danger hide">Um fortfahren zu können musst du die
               Kenntnisnahme der Verarbeitung personenbezogener Daten bestätigen.
           </div>
-          <div id="alertEinwilligungserklaerung" class="alert alert-danger hide">Um fortzufahren benötigt es der
+          <div id="alertEinwilligungserklaerung" class="alert alert-danger hide">Um fortzufahren, benötigt es der
               Zustimmung zur Verarbeitung personenbezogener Zusatzdaten.
           </div>
 
           <div class="row form-group">
             <div class="col-sm-12">
-                <input id="id" name="id" type="text" placeholder="E-Mail-Adresse" class="form-control" />
+                <input id="id" name="id" type="email" placeholder="E-Mail-Adresse" class="form-control">
             </div>
         </div>
         <div class="row form-group">
@@ -55,16 +55,16 @@ namespace MHN\Referenten;
           </div>
           <div class="row form-group">
               <div class="col-sm-12">
-                  <input type="checkbox" id="informationspflicht" value="informationspflicht"> Ja, ich nehme zur
+                  <label><input type="checkbox" id="informationspflicht" value="informationspflicht"> Ja, ich nehme zur
                   Kenntnis, dass meine personenbezogenen Daten wie <a href="#Informationspflicht">unten stehend</a>
-                  verarbeitet und gespeichert werden.
+                  verarbeitet und gespeichert werden.</label>
               </div>
           </div>
           <div class="row form-group">
               <div class="col-sm-12">
-                  <input type="checkbox" id="einwilligungserklaerung" value="einwilligungserklaerung"> Ja, ich willige
+                  <label><input type="checkbox" id="einwilligungserklaerung" value="einwilligungserklaerung"> Ja, ich willige
                   ein, dass meine personenbezogenen Zusatzdaten wie <a href="#Einwilligungserklaerung">unten stehend</a>
-                  verarbeitet und gespeichert werden dürfen.
+                  verarbeitet und gespeichert werden dürfen.</label>
               </div>
           </div>
 
@@ -118,10 +118,6 @@ namespace MHN\Referenten;
 
             var result = un && pw && dsgvo;
 
-            if(!result) {
-                window.alert('Username: ' + un + ' AND Passwort: ' + pw + ' Checkboxen: ' + dsgvo + ' = Result: ' + result);
-            }
-
             return result;
         }
 
@@ -139,7 +135,6 @@ namespace MHN\Referenten;
 
         function check_passwort() {
             //ToDo: JavaScript-Überprüfung der Eingaben vervollständigen
- //           window.alert('Passwort: ' + $("#password").val() + ' - Passwort2: ' + $("#password2").val())
             if ($("#password").val() == '' && $("#password2").val() == '') {
                 $("#alertPasswortEmpty").removeClass("hide");
                 return false;
@@ -152,7 +147,6 @@ namespace MHN\Referenten;
                 return true;
             } else {
                 $("#alertPasswort").removeClass("hide");
-//                $("#alertBenutzerkennung").removeClass("hide");
                 return false;
             }
         }
