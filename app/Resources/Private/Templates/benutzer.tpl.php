@@ -20,7 +20,7 @@ function form_row($label, $inputs) {
         $autocompleteOff = (!empty($input[2]) && ($input[2] === 'email' || $input[2] === 'password')) ? 'autocomplete="new-password"' : '';
 
         $cols = !empty($input[3]) ? $input[3] : floor(10/count($inputs));
-        
+
         $class = !empty($input['class']) ? $input['class'] : 'form-control';
 
         if (!empty($input['maxlength'])) {
@@ -28,12 +28,12 @@ function form_row($label, $inputs) {
         } else {
             $maxlength = (!empty($input[2]) && $input[2] == 'textarea') ? 1000 : 255;
         }
-        
+
         if (!empty($input['error'])) {
             $class .= ' form-control-danger';
             $has_danger = 'has-danger';
         }
-        
+
         if (empty($input['disabled'])) {
             $name = "name='$uid'";
             $disabled = '';
@@ -46,7 +46,7 @@ function form_row($label, $inputs) {
 
         $placeholder = !empty($input['placeholder']) ? $input['placeholder'] : strip_tags($label);
         $title = !empty($input['title']) ? $input['title'] : $placeholder;
-        
+
         if ($select) {
             $tag = "<select id='input-$uid' $name class='$class' $disabled title='$title'>\n";
             foreach ($input['options'] as $key=>$text) {
@@ -61,7 +61,7 @@ function form_row($label, $inputs) {
         } else  {
             $tag = "<input id='input-$uid' $name value='$value' $type $autocompleteOff class='$class' $disabled placeholder='$placeholder' title='$title' maxlength='$maxlength'>\n";
         }
-        
+
         if (!empty($input['sichtbarkeit'])) {
             $name = $input['sichtbarkeit'][0];
             $checked = $input['sichtbarkeit'][1] ? 'checked="checked"' : '';
@@ -69,14 +69,14 @@ function form_row($label, $inputs) {
                 <span class='input-group-addon'><input class='input-group-addon' name='$name' data-height='32' data-width='50' data-toggle='toggle' data-onstyle='success' data-offstyle='danger' data-on='&lt;span class=&quot;glyphicon glyphicon-eye-open&quot;&gt;&lt;/span&gt;' data-off='&lt;span class=&quot;glyphicon glyphicon-eye-close&quot;&gt;&lt;/span&gt;' type='checkbox' $checked></span>
                     </div>";
         }
-        
+
         $html .= "<div class='col-sm-$cols'>$tag</div>";
-        
+
         if (!$for) $for = "input-$uid";
     }
-    
+
     if (!$label) return $html;
-    
+
     return "<div class='form-group row $has_danger'>
         <label for='$uid' class='col-sm-2 col-form-label'>$label</label>
         $html
@@ -130,12 +130,12 @@ if (!empty($old_password_error)) {
     $active_pane = 'password';
     $password_error = $changes = $error = true;
 }
-        
+
 if (!empty($data_saved_info)) {
     Tpl::set('alert_type', 'success');
     Tpl::set('alert_text', (!$error ? 'Deine Daten wurden geändert.' : 'Die anderen Änderungen wurden gespeichert.') . (!empty($email_auth_info) ? ' Es wurde eine E-Mail zur Bestätigung an deine neue E-Mail-Adresse versendet.' : ''));
     Tpl::render('Layout/alert');
-} 
+}
 
 if ($locked) {
     Tpl::set('alert_type', 'warning');
@@ -195,19 +195,28 @@ if ($new_email_token and empty($email_auth_info)) {
             , 'placeholder' => 'Geschlecht'],
             ['mensa_nr', $mensa_nr, 'placeholder' => 'Mensa-Mitgliedsnummer']
         ])?>
-        <?= 
+        <?=
         form_row('MHN-Mitglied:', [
             ['mhn_mitglied', $mhn_mitglied, 'select', 'options' => [
                 true => 'Ja',
                 false => 'Nein'
             ], 'placeholder' => 'Mitglied']
         ]) ?>
-        
+
         <?=form_row('E-Mail', [['email', $email, 'email','disabled' => $disableMitgliederverwaltung, 'error' => $email_error]])?>
         <?= form_row('Telefon (optional)', [['telefon', $telefon, 'tel']]) ?>
         <?= form_row('Mobil (optional)', [['mobil', $mobil, 'tel']]) ?>
 
         <?= form_row('Zugehörigkeit (Affiliation) (optional) <span class="glyphicon glyphicon-globe"></span>', [['affiliation', $affiliation]]) ?>
+
+        <div class="row form-group">
+            <div class="col-sm-2">
+                Aufnahmen (optional)
+            </div>
+            <div class="col-sm-10">
+                <div class="checkbox"><label><input name="aufnahmen" type="checkbox" <?=$aufnahmen?'checked':''?>> Ich bin damit einverstanden, dass von meinem Vortrag eine Bild-Ton-Aufnahme angefertig wird. Die Aufnahmen werden nur Teilnehmer:innen der Mind-Akademie zugänglich gemacht. Diese Zustimmung kann jederzeit widerrufen werden. </label></div>
+            </div>
+        </div>
 
         <?=form_row('Kurzvita <span class="glyphicon glyphicon-globe"></span>', [['kurzvita', $kurzvita, 'textarea', 'options' => [
             'cols' => '20',
@@ -224,11 +233,11 @@ if ($new_email_token and empty($email_auth_info)) {
                 <img id="aktuellesBild" src="<?=$profilbild?('profilbilder/'.$profilbild):('img/profilbild-default.png')?>" />
             </div>
         </div>
-        
+
         <div class="form-group row">
             <label for="profilbild" class="col-sm-2 col-form-label">Bild ändern (max. 20 MB)</label>
             <div class="col-sm-10">
-            
+
                 <div class="input-group">
                     <label class="input-group-btn">
                         <span class="btn btn-primary">
@@ -362,7 +371,7 @@ $(function() {
       $(':file').on('fileselect', function(event, label) {
 
           var input = $(this).parents('.input-group').find(':text');
-              
+
           if( input.length ) {
               input.val(label);
           }
@@ -378,7 +387,7 @@ $(document).on('change', 'input', function() {
 $(window).bind('beforeunload', function(){
     if (changes) return 'Achtung! Ungespeicherte Änderungen gehen verloren. Fortsetzen?';
 });
-    
+
 function checkForm() {
     // TODO: E-Mail und Passwort-Wiederholung prüfen
     changes = false;
@@ -389,19 +398,19 @@ function checkForm() {
 function lockFrontend()
 {
     $("input, textarea").not("[name='locked']").not("[name='publish']")
-        .not("[name='mensa_nr']").not("[name='telefon']").not("[name='mobil']").not("[name='email']")
+        .not("[name='mensa_nr']").not("[name='telefon']").not("[name='mobil']").not("[name='email']").not("[name='aufnahmen']")
         .not("[name='new_password']").not("[name='new_password2']").not("[name='password']")
         .prop("readonly", true);
-    $("input, select").not("[name='locked']").not("[name='publish']").click(function () {return false;});
+    $("input, select").not("[name='locked']").not("[name='publish']").not("[name='aufnahmen']").click(function () {return false;});
 }
 
 function unlockFrontend()
 {
     $("input, select, textarea").not("[name='locked']").not("[name='publish']")
-        .not("[name='mensa_nr']").not("[name='telefon']").not("[name='mobil']").not("[name='email']")
+        .not("[name='mensa_nr']").not("[name='telefon']").not("[name='mobil']").not("[name='email']").not("[name='aufnahmen']")
         .not("[name='new_password']").not("[name='new_password2']").not("[name='password']")
         .prop("readonly", false);
-    $("input, select").not("[name='locked']").not("[name='publish']").unbind("click");
+    $("input, select").not("[name='locked']").not("[name='publish']").not("[name='aufnahmen']").unbind("click");
 }
 
 <?php if ($locked): ?>

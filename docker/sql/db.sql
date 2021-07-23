@@ -29,6 +29,7 @@ CREATE TABLE `benutzer` (
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   `locked` tinyint(1) NOT NULL DEFAULT '0',
   `publish` tinyint(1) NOT NULL DEFAULT '0',
+  `aufnahmen` tinyint(1) NOT NULL DEFAULT '0',
   `datenschutz_bereinigt` tinyint(1) NOT NULL DEFAULT '0',
   `datenschutz_bereinigung_termin` DATE,
   `kenntnisnahme_informationspflicht_persbez_daten` datetime DEFAULT NULL,

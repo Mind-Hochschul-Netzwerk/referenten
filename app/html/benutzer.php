@@ -13,7 +13,7 @@ namespace MHN\Referenten;
 const bearbeiten_strings_ungeprueft = ['titel', 'vorname', 'nachname', 'geschlecht', 'mensa_nr', 'telefon', 'mobil', 'kurzvita', 'affiliation'];
 
 // Liste der vom Benutzer änderbaren Booleans
-const bearbeiten_bool_ungeprueft = ['mhn_mitglied'];
+const bearbeiten_bool_ungeprueft = ['aufnahmen', 'mhn_mitglied'];
 
 // Liste der vom Programmteam (recht=ma-pt) änderbaren Strings
 const bearbeiten_strings_admin = ['email'];
@@ -94,7 +94,7 @@ if (isset($_REQUEST['vorname'])) {
     ensure($_REQUEST['new_password'], ENSURE_SET); // nicht ENSURE_STRING, weil dabei ein trim() durchgeführt wird
     ensure($_REQUEST['new_password2'], ENSURE_SET);
     ensure($_REQUEST['password'], ENSURE_SET);
-    
+
     if ($_REQUEST['new_password'] and !$_REQUEST['new_password2'] and !$_REQUEST['password'] and Auth::checkPassword($_REQUEST['new_password'], $r->get('uid'))) {
         // nichts tun. Der Passwort-Manager des Users hat das Passwort eingefügt und autocomplete=off ignoriert
     } else if (($_REQUEST['password'] or $_REQUEST['new_password2']) and !$_REQUEST['new_password']) {
@@ -114,10 +114,14 @@ if (isset($_REQUEST['vorname'])) {
             }
         }
     }
-    
+
     // Ändern der Eigenschaften, die auch dann noch geändert werden dürfen, wenn das Profil gesichtet wurde
-    foreach (['mensa_nr', 'telefon', 'mobil'] as $key) {
-        ensure($_REQUEST[$key], ENSURE_STRING);
+    foreach (['mensa_nr', 'telefon', 'mobil', 'aufnahmen'] as $key) {
+        if (in_array($key, bearbeiten_strings_ungeprueft, true)) {
+            ensure($_REQUEST[$key], ENSURE_STRING);
+        } elseif (in_array($key, bearbeiten_bool_ungeprueft, true)) {
+            ensure($_REQUEST[$key], ENSURE_BOOL, false);
+        }
         $r->set($key, $_REQUEST[$key]);
         Tpl::set($key, $_REQUEST[$key]);
     }
@@ -173,7 +177,7 @@ if (isset($_REQUEST['vorname'])) {
                 Tpl::set('profilbild_format_unbekannt', true);
             }
         }
-    
+
         // Profilbild löschen
         ensure($_REQUEST['bildLoeschen'], ENSURE_BOOL);
         if ($_REQUEST['bildLoeschen']) {
@@ -190,7 +194,7 @@ if (isset($_REQUEST['vorname'])) {
     $r->set('db_modified', 'now');
     $r->save();
     Tpl::set('data_saved_info', true);
-        
+
     // Rechte aktualisieren
     if (Auth::hatRecht('rechte')) {
         DB::query("DELETE FROM rechte WHERE uid=%d", $r->get('id'));

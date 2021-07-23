@@ -43,6 +43,7 @@ class Benutzer {
         'deleted'=>false,
         'locked' => false,
         'publish' => false,
+        'aufnahmen' => false,
         'kenntnisnahme_informationspflicht_persbez_daten' => null,
         'kenntnisnahme_informationspflicht_persbez_daten_text' => '',
         'einwilligung_persbez_zusatzdaten' => null,
@@ -386,6 +387,7 @@ class Benutzer {
                 case 'datenschutz_bereinigung_termin':
                 case 'locked':
                 case 'publish':
+                case 'aufnahmen':
                 case 'kenntnisnahme_informationspflicht_persbez_daten':
                 case 'kenntnisnahme_informationspflicht_persbez_daten_text':
                 case 'einwilligung_persbez_zusatzdaten':
