@@ -19,6 +19,7 @@ class Vortrag {
         'vid' => null,
         'eid' => null,
         'vTitel' => '',
+        'kurztitel' => '',
         'beitragsform' => '',
         'beitragssprache' => '',
         'beschrTeilnehmeranzahl' => '',
@@ -45,17 +46,17 @@ class Vortrag {
         'datenschutz_bereinigt' => false,
         'datenschutz_bereinigung_termin' => null,
     ];
-    
+
     /**
     * Lädt ein Vortrag aus der Datenbank und gibt ein Vortrag-Objekt zurück (oder null)
     */
     public static function lade($vid, $auchGeloeschte = false) {
         $v = new self($vid, $auchGeloeschte);
-        
+
         if (!$v->data) {
             return null;
         }
-        
+
         return $v;
     }
 
@@ -79,7 +80,7 @@ class Vortrag {
 
         return $vid;
     }
-    
+
     /**
     * Erzeugt ein Vortrag-Objekt für ein neuen Vortrag
     *
@@ -106,7 +107,7 @@ class Vortrag {
 
         return $v;
     }
-    
+
     /**
     * privater Konstruktor, um das direkte Erstellen von Objekten zu verhindern
     * Benutze die Funktion Vortrag::lade($vid)
@@ -220,7 +221,7 @@ class Vortrag {
                 return;
         }
     }
-    
+
     /**
     * Ändert eine Eigenschaft
     */
@@ -309,6 +310,7 @@ class Vortrag {
                 case 'vid':
                 case 'uid':
                 case 'vTitel':
+                case 'kurztitel':
                 case 'abstract':
                 case 'eid':
                 case 'beitragsform':
@@ -335,7 +337,7 @@ class Vortrag {
 
     /**
      * Datenschutz-Bereinigung (anschließend muss noch save() aufgerufen werden!)
-     * 
+     *
      * @return void
      */
     private function prepareDatenschutzBereinigung()
@@ -345,7 +347,7 @@ class Vortrag {
         $this->setData('deleted', $deleted);
         $this->setData('datenschutz_bereinigt', true);
     }
-    
+
     /**
      * Speichert den Benutzer in der Datenbank
      *

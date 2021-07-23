@@ -83,9 +83,9 @@ function form_row($label, $inputs) {
         $cols = !empty($input['cols']) ? $input['cols'] : floor(10/count($inputs));
         $html .= getHtmlForFormInput($input, $label, $cols, $hasDanger);
     }
-    
+
     if (!$label) return $html;
-    
+
     return "<div class='form-group row $hasDanger'>
         <label for='$vid' class='col-sm-2 col-form-label'>$label</label>
         $html
@@ -148,6 +148,7 @@ if (!empty($data_saved_info)) {
                 's' => 'sonstiges'
             ]],
         ]) ?>
+        <?=form_row('Kurztitel (max. 24 Zeichen) <span class="glyphicon glyphicon-globe"></span>', [['kurztitel', $kurztitel, 'maxlength' => 24]])?>
         <div class='form-group row'>
             <label for='$vid' class='col-sm-2 col-form-label'>Referent*innen <span class="glyphicon glyphicon-globe"></span></label>
             <?php if (Auth::hatRecht('ma-pt')): ?>
@@ -285,7 +286,7 @@ $(document).on('change', 'input', function() {
 $(window).bind('beforeunload', function(){
     if (changes) return 'Achtung! Ungespeicherte Änderungen gehen verloren. Fortsetzen?';
 });
-    
+
 function checkForm() {
     // TODO: E-Mail und Passwort-Wiederholung prüfen
     changes = false;

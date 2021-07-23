@@ -7,7 +7,7 @@ namespace MHN\Referenten;
 */
 
 // Liste der vom Vortrag änderbaren Strings, deren Werte nicht geprüft werden
-const bearbeiten_strings_ungeprueft = ['vTitel', 'beitragsform', 'beitragssprache', 'beschrTeilnehmeranzahl', 'maxTeilnehmeranzahl', 'praefZeit', 'anmerkungen', 'abstract', 'equipment_sonstiges_beschreibung'];
+const bearbeiten_strings_ungeprueft = ['vTitel', 'kurztitel', 'beitragsform', 'beitragssprache', 'beschrTeilnehmeranzahl', 'maxTeilnehmeranzahl', 'praefZeit', 'anmerkungen', 'abstract', 'equipment_sonstiges_beschreibung'];
 
 // Liste der vom Vortrag änderbaren Integer, deren Werte nicht geprüft werden
 const bearbeiten_int_ungeprueft = ['eid'];
@@ -112,6 +112,9 @@ if (isset($_REQUEST['delete'])) {
 if (isset($_REQUEST['vTitel'])) {
     foreach (bearbeiten_strings_ungeprueft as $key) {
         ensure($_REQUEST[$key], ENSURE_STRING);
+        if ($key == 'kurztitel') { // max. length: 24 characters
+            $_REQUEST[$key] = mb_substr($_REQUEST[$key], 0, 24);
+        }
         $v->set($key, $_REQUEST[$key]);
         Tpl::set($key, $_REQUEST[$key]);
     }
