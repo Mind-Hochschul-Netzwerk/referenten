@@ -25,6 +25,9 @@ prod: image .env check-traefik
 database: .env
 	docker-compose -f docker-compose.base.yml -f docker-compose.prod.yml up -d --force-recreate referenten-database
 
+adminer: .env
+	docker-compose -f docker-compose.base.yml -f docker-compose.dev.yml up -d referenten-adminer
+
 shell:
 	docker-compose exec referenten sh
 
