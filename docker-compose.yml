@@ -1,0 +1,73 @@
+version: "3.5"
+services:
+  referenten-database:
+    image: mariadb
+    restart: unless-stopped
+    container_name: ${SERVICENAME}-database
+    environment:
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD
+      - MYSQL_DATABASE=database
+      - MYSQL_ROOT_PASSWORD
+    volumes:
+      - "./docker/sql:/docker-entrypoint-initdb.d:ro"
+      - "${VOLUMES_DIR}/mariadb:/var/lib/mysql"
+    networks:
+      - ${SERVICENAME}
+
+  referenten:
+    image: mindhochschulnetzwerk/${SERVICENAME}
+    restart: unless-stopped
+    container_name: ${SERVICENAME}
+    volumes:
+      - "${VOLUMES_DIR}/profilbilder:/var/www/html/public/profilbilder"
+    environment:
+      - DOMAINNAME
+      - MYSQL_HOST=${SERVICENAME}-database
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD
+      - MYSQL_DATABASE=database
+      - TOKEN_KEY
+      - SMTP_HOST
+      - SMTP_SECURE
+      - SMTP_PORT
+      - SMTP_USER
+      - SMTP_PASSWORD
+      - FROM_ADDRESS
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.${SERVICENAME}.entrypoints=websecure
+      - traefik.http.routers.${SERVICENAME}.rule=Host(`${SERVICENAME}.${DOMAINNAME}`)
+      - traefik.http.routers.${SERVICENAME}.middlewares=secheader@file
+    depends_on:
+      - ${SERVICENAME}-database
+    networks:
+      - traefik
+      - ${SERVICENAME}
+      - akademie
+
+  referenten-adminer:
+    image: adminer
+    container_name: ${SERVICENAME}-adminer
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.${SERVICENAME}-adminer.entrypoints=websecure
+      - traefik.http.routers.${SERVICENAME}-adminer.rule=Host(`${SERVICENAME}-adminer.${DOMAINNAME}`)
+      - traefik.http.routers.${SERVICENAME}-adminer.middlewares=secheader@file
+    depends_on:
+      - ${SERVICENAME}-database
+    networks:
+      - traefik
+      - ${SERVICENAME}
+
+networks:
+  traefik:
+    name: traefik
+    external: true
+  akademie:
+    name: akademie
+    external: true
+  referenten:
+    name: ${SERVICENAME}

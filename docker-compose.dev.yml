@@ -4,18 +4,3 @@ services:
     volumes:
       - "./app:/var/www"
       - "${VOLUMES_DIR}/profilbilder:/var/www/html/profilbilder"
-
-  referenten-adminer:
-    image: adminer
-    restart: unless-stopped
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=traefik
-      - traefik.http.routers.referenten-adminer.entrypoints=websecure
-      - traefik.http.routers.referenten-adminer.rule=Host(`referenten-adminer.${DOMAINNAME}`)
-      - traefik.http.routers.referenten-adminer.middlewares=secheader@file
-    depends_on:
-      - referenten-database
-    networks:
-      - traefik
-      - referenten
