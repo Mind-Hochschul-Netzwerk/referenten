@@ -11,7 +11,7 @@ Referententool für Akademie und Symposium (http://referenten.mind-hochschul-net
 Die Akademie muss bereits laufen (oder in docker-compose.base.yml die Zeile ganz unten beim Netzwerk `akademie` die Zeile `external: true` entfernen). Dann:
 
     $ composer install -d app
-    $ make quick-image
+    $ make rebuild
     $ make dev
 
 Der Login ist dann im Browser unter [https://referenten.docker.localhost](https://referenten.docker.localhost) erreichbar. Die Sicherheitswarnung wegen des Zertifikates kann weggeklickt werden.
