@@ -13,6 +13,10 @@ use MHN\Referenten\Benutzer;
 const no_output_buffering = true;
 require_once '../lib/base.inc.php';
 
+Auth::intern();
+
+if (!Auth::hatRecht('ma-pt')) die("Fehlende Rechte.");
+
 header("Content-Disposition: attachment; filename=\"vortraege.csv\"");
 header("Content-Type: text/csv; charset=utf-8");
 
