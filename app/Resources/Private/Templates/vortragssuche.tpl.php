@@ -171,22 +171,12 @@ function form_row($label, $inputs) {
 
 <div class="form-group row">
     <div class="col-sm-2">
-        <button name="export" type="submit" class="btn btn-success" onclick="return exportErgebnisse()"><span
-                    class="glyphicon glyphicon-search"></span> Exportieren
-        </button>
+        <a href="/exportVortraege.php?var=<?=implode(',', $vids);?>" class="btn btn-success">
+            <span class="glyphicon glyphicon-search"></span> Exportieren
+        </a>
     </div>
 </div>
 
 <?php Tpl::footStart(); ?>
-
-<script>
-
-    function exportErgebnisse() {
-        var ergebnisse = '<?=implode(',', $vids);?>';
-
-        var url2 = window.location.origin + '/exportVortraege.php?var=' + ergebnisse;
-        window.open(url2, '_blank');
-    }
-</script>
 
 <?php Tpl::footEnd(); ?>
