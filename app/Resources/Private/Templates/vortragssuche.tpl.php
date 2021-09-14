@@ -169,13 +169,12 @@ function form_row($label, $inputs) {
     </div>
 <?php endif; ?>
 
-<div class="form-group row">
-    <div class="col-sm-2">
         <a href="/exportVortraege.php?var=<?=implode(',', $vids);?>" class="btn btn-success">
             <span class="glyphicon glyphicon-search"></span> Exportieren
         </a>
-    </div>
-</div>
+        <a href="/profilbilder-download.php?var=<?=implode(',', $vids);?>" class="btn btn-success">
+            <span class="glyphicon glyphicon-download"></span> Profilbilder herunterladen
+        </a>
 
 <?php Tpl::footStart(); ?>
 
