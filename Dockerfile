@@ -24,4 +24,4 @@ RUN set -ex \
   && echo "client_max_body_size 20m;" > /etc/nginx/conf.d/server-client_max_body_size \
   && mkdir -p /var/www/html/profilbilder && chown www-data:www-data /var/www/html/profilbilder
 
-VOLUME /var/www/html/public/profilbilder
+VOLUME /var/www/html/profilbilder
