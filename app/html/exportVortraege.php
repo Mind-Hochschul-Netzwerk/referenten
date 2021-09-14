@@ -19,7 +19,7 @@ header("Content-Type: text/csv; charset=utf-8");
 $ids = explode(",",  $_GET['var']);
 
 // Reihenfolge der Einträge (+ sämtliche in Vortrag::felder)
-$spalten = ['vid', 'uid', 'vorname', 'nachname', 'email', 'affiliation', 'kurzvita'];
+$spalten = ['vid', 'uid', 'titel', 'vorname', 'nachname', 'email', 'geschlecht', 'affiliation', 'kurzvita'];
 foreach(array_keys(Vortrag::felder) as $spalte) {
     if (in_array($spalte, $spalten, true)) {
         continue;
@@ -66,9 +66,11 @@ foreach ($ids as $id) {
     $zeile = $kopfzeile;
     $zeile['vid'] = $v->get('vid');
     $zeile['uid'] = $v->get('uid');
+    $zeile['titel'] = $benutzer->get('titel');
     $zeile['vorname'] = $benutzer->get('vorname');
     $zeile['nachname'] = $benutzer->get('nachname');
     $zeile['email'] = $benutzer->get('email');
+    $zeile['geschlecht'] = $benutzer->get('geschlecht');
     $zeile['affiliation'] = $benutzer->get('affiliation');
     $zeile['kurzvita'] = $benutzer->get('kurzvita');
 
