@@ -46,7 +46,7 @@ Bitte melde dich innerhalb der nächsten $passwordExpireTime_minutes Minuten unt
 https://referenten." . getenv('DOMAINNAME') . " an und ändere dein Passwort.
 
 Das alte Passwort bleibt bis zum Login mit dem neuen Passwort ebenfalls gültig.
-", '', 'email');
+", 'email');
         }
 
         Tpl::set('lost_password', true);

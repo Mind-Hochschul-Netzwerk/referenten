@@ -549,7 +549,7 @@ Bitte rufe die folgende Adresse auf, um die Änderung deiner E-Mail-Adresse im M
 https://referenten.' . getenv('DOMAINNAME') . '/email_auth.php?token=' . urlencode($this->data['new_email_token']) . '
 
 Der Link hat eine Gültigkeit von ' . ((strtotime(Config::newEmailTokenExpireTime) - time()) / 3600) . ' Stunden.
-', '', 'new_email');
+', 'new_email');
 
 
         // Info an die alte Adresse
@@ -562,7 +562,7 @@ Jemand (hoffentlich du selbst!) möchte deine gespeicherte E-Mail-Adresse im Min
 Die neue Adresse lautet ' . $this->data['new_email']  . '.
 
 Wenn dich diese E-Mail überrascht, nimm bitte Kontakt mit dem IT-Team auf.
-', '', 'email');
+', 'email');
         }
 
         $this->sendAuthMailOnSave = false; // nicht nochmal
