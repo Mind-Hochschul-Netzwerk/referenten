@@ -529,7 +529,7 @@ class Benutzer {
 
         foreach ($to_list as $TO) {
             if (!(EmailService::getInstance()->send($TO, $subject, $body))) {
-                throw new \RuntimeException('Beim Versand der E-Mail an ' . $TO . ' (ID ' . $this->data['id'] . ') ist ein Fehler aufgetreten.', 1522422201);
+                throw new \RuntimeException('Beim Versand der E-Mail an ' . $TO . ' (ID ' . $this->data['uid'] . ') ist ein Fehler aufgetreten.', 1522422201);
             }
         }
     }
