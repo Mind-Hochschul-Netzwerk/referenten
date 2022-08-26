@@ -102,6 +102,7 @@ foreach ($ids as $id) {
                         'v' => 'Vortrag',
                         'w' => 'Workshop',
                         's' => 'sonstiges',
+                        '' => '',
                     ][$value];
                     break;
                 default:
