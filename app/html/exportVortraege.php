@@ -68,6 +68,7 @@ foreach ($ids as $id) {
     $benutzer = Benutzer::lade($v->get('uid'));
 
     $zeile = $kopfzeile;
+    $zeile['datum'] = '';
     $zeile['vid'] = $v->get('vid');
     $zeile['uid'] = $v->get('uid');
     $zeile['titel'] = $benutzer->get('titel');
