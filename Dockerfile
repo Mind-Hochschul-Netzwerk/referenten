@@ -17,6 +17,7 @@ RUN set -ex \
     php7-ctype \
     php7-simplexml \
     php7-xmlreader \
+    php7-fileinfo \
   && mkdir /var/www/vendor && chown www-data:www-data /var/www/vendor \
   && su www-data -s /bin/sh -c "composer install -d /var/www --optimize-autoloader --no-dev --no-interaction --no-progress --no-cache" \
   && chown -R nobody:nobody /var/www \
