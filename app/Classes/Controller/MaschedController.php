@@ -158,7 +158,7 @@ class MaschedController implements \MHN\Referenten\Interfaces\Singleton
             // Bisherige Konfiguration löschen. Beim Lesen der ersten Zeile durchführen.
             if ($anzahl === 0) {
                 DB::query('DELETE FROM rahmenprogramm WHERE jahr=%d', $this->jahr);
-                DB::query('UPDATE vortraege SET programm_raum=NULL, programm_beginn=NULL, programm_ende=NULL WHERE eid IN (SELECT eid FROM events WHERE kennzeichen="%s")', $this->eventKennzeichen);
+                DB::query('UPDATE vortraege SET programm_raum="", programm_beginn=NULL, programm_ende=NULL WHERE eid IN (SELECT eid FROM events WHERE kennzeichen="%s")', $this->eventKennzeichen);
             }
 
             $id = $row[$indexes['vid']];
