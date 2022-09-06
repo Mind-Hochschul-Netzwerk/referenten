@@ -12,9 +12,10 @@
 
 <h3>Blockung</h3>
 
-<h4>Blockung aus Datei (xlsx oder ods) importieren.</h4>
+<h4>Blockung aus Datei (csv, xlsx oder ods) importieren.</h4>
 
 <p>Die Datei muss eine Tabelle enthalten. In der ersten Zeile müssen die Spaltenüberschriften <code>titel</code>, <code>typ</code>, <code>datum</code>, <code>uhrzeit_beginn</code>, <code>uhrzeit_ende</code> vorkommen. In jeder Zeile steht dann ein Block, wobei in der Spalte <code>typ</code> der Wert <code>Pause</code> oder <code>Slot</code> (für einen freien Slot, der befüllt werden kann) stehen muss.</p>
+<p>Bei CSV-Dateien muss als Trennzeichen <code>,</code> eingestellt sein.</p>
 
 <form enctype="multipart/form-data" method="post">
     <div class="row">
@@ -49,11 +50,12 @@
 
 <h3>Programmimport</h3>
 
-<h4>Programm aus Datei (xlsx oder ods) importieren.</h4>
+<h4>Programm aus Datei (csv, xlsx oder ods) importieren.</h4>
 
 <p>Die Datei muss eine Tabelle enthalten. In der ersten Zeile müssen die Spaltenüberschriften <code>vid</code>, <code>beitrag_titel</code>, <code>beitrag_typ</code>, <code>beitrag_raum</code>, <code>datum</code>, <code>uhrzeit_beginn</code>, <code>uhrzeit_ende</code> vorkommen. Die Reihenfolge und zusätzliche andere Spalten sind egal.</p>
 <p>Die Einträge in der Spalte <code>vid</code> sind eine eindeutige Zuordnung des Beitrags und dürfen später nicht mehr geändert werden. Falls <code>vid</code> eine Zahl ist, bezieht sich der Wert auf den entsprechenden Beitrag mit der Vortragskennung. Beiträge, bei denen <code>vid</code> <strong>keine</strong> Zahl ist (z.B. &quot;rahmen_1&quot;) sind Rahmenprogramm.</p>
 <p>Erlaubte Werte in der Spalte <code>beitrag_typ</code> sind <code>Sonstiges</code>, <code>Rahmenprogramm</code>, <code>Workshop</code> und <code>Vortrag</code>.</p>
+<p>Bei CSV-Dateien muss als Trennzeichen <code>,</code> eingestellt sein.</p>
 
 <form enctype="multipart/form-data" method="post">
     <div class="row">

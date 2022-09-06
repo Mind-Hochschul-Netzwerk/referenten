@@ -69,20 +69,47 @@ class MaschedController implements \MHN\Referenten\Interfaces\Singleton
     }
 
     /**
+     * CSV data separator has to be "," (PHP default)
+     */
+    private static function generateRowIteratorFromCsv(string $filename): \Generator
+    {
+        $fp = fopen($filename, 'r');
+        while ($row = fgetcsv($fp)) {
+            yield $row;
+        }
+    }
+
+    /**
      * Liest die im HTML-Feld "bloecke" übertragene Datei mit der Blockung ein.
      *
      * @return int Anzahl der Blöcke
      */
     private function ladeBloecke()
     {
-        try {
-            $sheet = SpreadsheetReader::getSheetFromUploadedFile('bloecke');
-        } catch (\RuntimeException $e) {
-            die('Der Dateityp wird nicht unterstützt oder konnte nicht erkannt werden.');
+        if (!preg_match('/\.([^.]+)$/', $_FILES['bloecke']['name'], $m)) {
+            die('Der Dateityp wird nicht unterstützt oder konnte nicht erkannt werden (fehlende Endung).');
+        }
+
+        $ext = $m[1];
+        switch ($ext) {
+            case 'csv':
+                $rows = self::generateRowIteratorFromCsv($_FILES['bloecke']['tmp_name']);
+                break;
+            case 'xlsx':
+            case 'xls':
+            case 'ods':
+            default:
+                try {
+                    $sheet = SpreadsheetReader::getSheetFromUploadedFile('bloecke');
+                } catch (\RuntimeException $e) {
+                    die('Der Dateityp wird nicht unterstützt oder konnte nicht erkannt werden.');
+                }
+                $rows = $sheet->getRowIterator();
+                break;
         }
 
         $anzahl = 0;
-        foreach ($sheet->getRowIterator() as $row) {
+        foreach ($rows as $row) {
             // erste Zeile enthält die Überschriften
             if (!isset($indexes)) {
                 $indexes = array_flip($row);
@@ -133,14 +160,30 @@ class MaschedController implements \MHN\Referenten\Interfaces\Singleton
      */
     private function ladeProgramm()
     {
-        try {
-            $sheet = SpreadsheetReader::getSheetFromUploadedFile('programm');
-        } catch (\RuntimeException $e) {
-            die('Der Dateityp wird nicht unterstützt oder konnte nicht erkannt werden.');
+        if (!preg_match('/\.([^.]+)$/', $_FILES['programm']['name'], $m)) {
+            die('Der Dateityp wird nicht unterstützt oder konnte nicht erkannt werden (fehlende Endung).');
+        }
+
+        $ext = $m[1];
+        switch ($ext) {
+            case 'csv':
+                $rows = self::generateRowIteratorFromCsv($_FILES['programm']['tmp_name']);
+                break;
+            case 'xlsx':
+            case 'xls':
+            case 'ods':
+            default:
+                try {
+                    $sheet = SpreadsheetReader::getSheetFromUploadedFile('programm');
+                } catch (\RuntimeException $e) {
+                    die('Der Dateityp wird nicht unterstützt oder konnte nicht erkannt werden.');
+                }
+                $rows = $sheet->getRowIterator();
+                break;
         }
 
         $anzahl = 0;
-        foreach ($sheet->getRowIterator() as $row) {
+        foreach ($rows as $row) {
             // erste Zeile enthält die Überschriften
             if (!isset($indexes)) {
                 $indexes = array_flip($row);
