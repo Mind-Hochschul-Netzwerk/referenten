@@ -33,7 +33,7 @@ class Tpl
      *
      * @param string $var
      * @param mixed $val
-     * @param bool $escape HTML-Kontrollzeichen ersetzen (bei arrays auch rekursiv) und Zeitzonen von DateTime-Objekten auf MET stellen
+     * @param bool $escape HTML-Kontrollzeichen ersetzen (bei arrays auch rekursiv)
      * @throws \InvalidArgumentException Wenn $val ein Objekt enthält und $escape==true ist
      */
     public static function set(string $var, $val, $escape = true)
@@ -51,7 +51,7 @@ class Tpl
     }
 
     /**
-     * HTML-Kontrollzeichen ersetzen und Zeitzonen von DateTime-Objekten auf MET stellen
+     * HTML-Kontrollzeichen ersetzen
      *
      * @param mixed $value
      * @return mixed
@@ -63,7 +63,6 @@ class Tpl
         if (is_object($value)) {
             if (get_class($value) == 'DateTime') {
                 $value = clone $value;
-                $value->setTimeZone(new \DateTimeZone('MET'));
             } else {
                 throw new \InvalidArgumentException('Nicht unterstütztes Objekt gesetzt: ' . get_class($value), 1493681395);
             }
