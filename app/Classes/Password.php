@@ -31,7 +31,7 @@ class Password
             return false;
         }
 
-        if ($hash{0} === ':') {
+        if ($hash[0] === ':') {
             $elements = explode(':', $hash);
             $type = $elements[1];
         } else {

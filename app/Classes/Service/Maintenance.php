@@ -56,7 +56,7 @@ class Maintenance implements \MHN\Referenten\Interfaces\Singleton
 
         $files = [];
         while ($file = $dir->read()) {
-            if ($file{0} === '.') {
+            if ($file[0] === '.') {
                 continue;
             }
 

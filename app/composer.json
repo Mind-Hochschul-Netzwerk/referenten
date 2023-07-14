@@ -3,7 +3,7 @@
     "description": "Referententool",
     "type": "project",
     "require": {
-        "php": "^7.0",
+        "php": ">=8.0",
         "box/spout": "^2.7",
         "phpmailer/phpmailer": "^6.4"
     },

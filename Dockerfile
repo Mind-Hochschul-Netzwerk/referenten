@@ -1,28 +1,22 @@
-FROM mindhochschulnetzwerk/php-base
+FROM trafex/php-nginx:3.1.0
 
 LABEL Maintainer="Henrik Gebauer <code@henrik-gebauer.de>" \
       Description="mind-hochschul-netzwerk.de"
 
-COPY app/ /var/www/
+HEALTHCHECK --interval=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-ping
 
-RUN set -ex \
-  && apk --no-cache add \
-    php7-mysqli \
-    php7-xml \
-    php7-zip \
-    php7-curl \
-    php7-gd \
-    php7-ldap \
-    php7-session \
-    php7-ctype \
-    php7-simplexml \
-    php7-xmlreader \
-    php7-fileinfo \
-  && mkdir /var/www/vendor && chown www-data:www-data /var/www/vendor \
-  && su www-data -s /bin/sh -c "composer install -d /var/www --optimize-autoloader --no-dev --no-interaction --no-progress --no-cache" \
-  && chown -R nobody:nobody /var/www \
-  # for profile picture upload (default limit: 1 MB)
-  && echo "client_max_body_size 20m;" > /etc/nginx/conf.d/server-client_max_body_size \
-  && mkdir -p /var/www/html/profilbilder && chown www-data:www-data /var/www/html/profilbilder
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+USER root
+
+RUN apk --no-cache add php81-ldap php81-zip php81-pdo_mysql \
+  && chown nobody:nobody /var/www
+
+USER nobody
+
+COPY config/nginx/ /etc/nginx
+COPY --chown=nobody app/ /var/www
+
+RUN composer install -d "/var/www/" --optimize-autoloader --no-dev --no-interaction --no-progress --no-cache
 
 VOLUME /var/www/html/profilbilder
