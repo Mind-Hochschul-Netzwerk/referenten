@@ -39,7 +39,7 @@ class DB
             throw new \RuntimeException('Keine Verbindung zur Datenbank: ' . $e->getMessage(), 1493681965);
         }
 
-        self::$mysqli->query("SET NAMES 'utf8' COLLATE 'utf8_general_ci'");
+        self::$mysqli->query("SET NAMES 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'");
     }
 
     /**
