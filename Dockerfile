@@ -15,6 +15,7 @@ RUN apk --no-cache add php81-ldap php81-zip php81-pdo_mysql \
 USER nobody
 
 COPY config/nginx/ /etc/nginx
+COPY config/php-custom.ini /etc/php81/conf.d/custom.ini
 COPY --chown=nobody app/ /var/www
 
 RUN composer install -d "/var/www/" --optimize-autoloader --no-dev --no-interaction --no-progress --no-cache
