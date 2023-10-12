@@ -140,7 +140,7 @@ if (isset($_REQUEST['vorname'])) {
         }
 
         // neues Profilbild
-        if (isset($_FILES['profilbild']) and $_FILES['profilbild']['error'] == UPLOAD_ERR_OK) {
+        if (isset($_FILES['profilbild']) && $_FILES['profilbild']['error'] === UPLOAD_ERR_OK) {
             // zuerst versuchen, den Dateityp zu ermitteln
             $format = null;
             switch ($_FILES['profilbild']['type']) {
@@ -176,7 +176,7 @@ if (isset($_REQUEST['vorname'])) {
             } else {
                 Tpl::set('profilbild_format_unbekannt', true);
             }
-        } elseif (isset($_FILES['profilbild'])) {
+        } elseif (isset($_FILES['profilbild']) && $_FILES['profilbild']['error'] !== UPLOAD_ERR_NO_FILE) {
             Tpl::set('profilbild_uploadfehler', true);
         }
 
