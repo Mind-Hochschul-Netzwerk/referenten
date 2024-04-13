@@ -192,7 +192,7 @@ if (!empty($data_saved_info)) {
                 <div class="checkbox"><label><input name="equipment_beamer" type="checkbox" <?=$equipment_beamer?'checked="checked"':''?>> Beamer</label></div>
                 <div class="checkbox"><label><input name="equipment_computer" type="checkbox" <?=$equipment_computer?'checked="checked"':''?>> Computer</label></div>
                 <div class="checkbox"><label><input name="equipment_wlan" type="checkbox" <?=$equipment_wlan?'checked="checked"':''?>> Internetzugang / WLAN</label></div>
-                <div class="checkbox"><label><input name="equipment_lautsprecher" type="checkbox"  <?=$equipment_lautsprecher?'checked="checked"':''?> > Lautsprecherr (zum Abspielen von Video- oder Tondateien)</label></div>
+                <div class="checkbox"><label><input name="equipment_lautsprecher" type="checkbox"  <?=$equipment_lautsprecher?'checked="checked"':''?> > Lautsprecher (zum Abspielen von Video- oder Tondateien)</label></div>
                 <div class="checkbox"><label><input name="equipment_mikrofon" type="checkbox"  <?=$equipment_mikrofon?'checked="checked"':''?> > Mikrofonanlage</label></div>
                 <div class="checkbox"><label><input name="equipment_flipchart" type="checkbox"  <?=$equipment_flipchart?'checked="checked"':''?> > Flipchart</label></div>
                 <div class="checkbox"><label><input name="equipment_sonstiges" type="checkbox"  <?=$equipment_sonstiges?'checked="checked"':''?>> Sonstiges: <input type="text" name="equipment_sonstiges_beschreibung" placeholder="Bitte spezifizieren" value="<?=$equipment_sonstiges_beschreibung?>" class="form-control" ></label></div>

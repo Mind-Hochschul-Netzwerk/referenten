@@ -167,7 +167,6 @@ namespace MHN\Referenten;
             }
 
             return true;
-
         }
     </script>
 
