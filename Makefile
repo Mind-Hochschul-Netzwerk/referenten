@@ -1,49 +1,45 @@
-SERVICENAME=$(shell grep SERVICENAME .env | sed -e 's/^.\+=//' -e 's/^"//' -e 's/"$$//')
-MYSQL_PASSWORD=$(shell grep MYSQL_PASSWORD .env | sed -e 's/^.\+=//' -e 's/^"//' -e 's/"$$//')
+include .env
 
 check-traefik:
 ifeq (,$(shell docker ps -f name=^traefik$$ -q))
 	$(error docker container traefik is not running)
 endif
 
-.env:
-	$(error file .env is missing, see .env.sample)
-
 image:
 	@echo "(Re)building docker image"
-	docker build --no-cache -t mindhochschulnetzwerk/$(SERVICENAME):latest .
+	docker build --no-cache -t local/$(SERVICENAME):latest .
 
 rebuild:
 	@echo "Rebuilding docker image"
-	docker build -t mindhochschulnetzwerk/$(SERVICENAME):latest .
+	docker build -t local/$(SERVICENAME):latest .
 
-adminer: .env check-traefik
-	docker-compose up -d $(SERVICENAME)-adminer
+adminer: check-traefik
+	docker compose up -d adminer
 
-database: .env
-	docker-compose up -d --force-recreate $(SERVICENAME)-database
+database:
+	docker compose up -d --force-recreate db
 
-dev: .env check-traefik
+dev: check-traefik
 	@echo "Starting DEV Server"
-	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --force-recreate --remove-orphans
+	docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --force-recreate --remove-orphans
 
-prod: image .env check-traefik
+prod: image check-traefik
 	@echo "Starting Production Server"
-	docker-compose up -d --force-recreate --remove-orphans $(SERVICENAME)
+	docker compose up -d --force-recreate --remove-orphans app
 
 upgrade:
 	git pull
 	make prod
 
 shell:
-	docker-compose exec $(SERVICENAME) sh
+	docker compose exec app sh
 
 rootshell:
-	docker-compose exec --user root $(SERVICENAME) sh
+	docker compose exec --user root app sh
 
-mysql: .env
-	@echo "docker-compose exec $(SERVICENAME)-database mysql --user=user --password=\"...\" database"
-	@docker-compose exec $(SERVICENAME)-database mysql --user=user --password="$(MYSQL_PASSWORD)" database
+mysql:
+	@echo "docker-compose exec db mariadb --user=user --password=\"...\" database"
+	@docker-compose exec db mariadb --user=user --password="$(MYSQL_PASSWORD)" database
 
 logs:
-	docker-compose logs -f
+	docker compose logs -f

@@ -1,6 +1,5 @@
-version: "3.5"
 services:
-  referenten-database:
+  db:
     image: mariadb
     restart: unless-stopped
     container_name: ${SERVICENAME}-database
@@ -12,18 +11,16 @@ services:
     volumes:
       - "./docker/sql:/docker-entrypoint-initdb.d:ro"
       - "${VOLUMES_DIR}/mariadb:/var/lib/mysql"
-    networks:
-      - ${SERVICENAME}
 
-  referenten:
-    image: mindhochschulnetzwerk/${SERVICENAME}
+  app:
+    image: local/${SERVICENAME}
     restart: unless-stopped
     container_name: ${SERVICENAME}
     volumes:
       - "${VOLUMES_DIR}/profilbilder:/var/www/html/profilbilder"
     environment:
       - DOMAINNAME
-      - MYSQL_HOST=${SERVICENAME}-database
+      - MYSQL_HOST=db
       - MYSQL_USER=user
       - MYSQL_PASSWORD
       - MYSQL_DATABASE=database
@@ -40,13 +37,13 @@ services:
       - traefik.http.routers.${SERVICENAME}.entrypoints=websecure
       - traefik.http.routers.${SERVICENAME}.rule=Host(`${SERVICENAME}.${DOMAINNAME}`)
     depends_on:
-      - ${SERVICENAME}-database
+      - db
     networks:
       - traefik
-      - ${SERVICENAME}
+      - default
       - akademie
 
-  referenten-adminer:
+  adminer:
     image: adminer
     container_name: ${SERVICENAME}-adminer
     labels:
@@ -55,10 +52,10 @@ services:
       - traefik.http.routers.${SERVICENAME}-adminer.entrypoints=websecure
       - traefik.http.routers.${SERVICENAME}-adminer.rule=Host(`${SERVICENAME}-adminer.${DOMAINNAME}`)
     depends_on:
-      - ${SERVICENAME}-database
+      - db
     networks:
       - traefik
-      - ${SERVICENAME}
+      - default
 
 networks:
   traefik:
@@ -67,5 +64,3 @@ networks:
   akademie:
     name: akademie
     external: true
-  referenten:
-    name: ${SERVICENAME}
