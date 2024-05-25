@@ -8,6 +8,8 @@ services:
       - MYSQL_PASSWORD
       - MYSQL_DATABASE=database
       - MYSQL_ROOT_PASSWORD
+      - MARIADB_AUTO_UPGRADE=1
+      - MARIADB_INITDB_SKIP_TZINFO=1
     volumes:
       - "./docker/sql:/docker-entrypoint-initdb.d:ro"
       - "${VOLUMES_DIR}/mariadb:/var/lib/mysql"
