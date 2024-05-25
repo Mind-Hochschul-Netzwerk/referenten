@@ -1,4 +1,5 @@
 .git/
+.github/
 Dockerfile*
 docker-compose.yml
 docker/sql
