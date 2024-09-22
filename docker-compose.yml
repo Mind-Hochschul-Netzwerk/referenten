@@ -38,6 +38,7 @@ services:
       - traefik.docker.network=traefik
       - traefik.http.routers.${SERVICENAME}.entrypoints=websecure
       - traefik.http.routers.${SERVICENAME}.rule=Host(`${SERVICENAME}.${DOMAINNAME}`)
+      - traefik.http.routers.${SERVICENAME}.middlewares=secheader@file
     depends_on:
       - db
     networks:
